@@ -31,20 +31,13 @@ namespace GoogleMLKitDemo.Droid.OCR
             try
             {
                 Bitmap bitmap = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length);
-                List<TextBlock> result = new List<TextBlock>();
                 var textRecognizer = new TextRecognizer.Builder(Application.Context).Build();
                 Frame imageFrame = new Frame.Builder().SetBitmap(bitmap).Build();
                 SparseArray textBlocks = textRecognizer.Detect(imageFrame);
 
-                var text = ProcessText(textBlocks);
-                //for (int i = 0; i < textBlocks.Size(); i++)
-                //{
-                //    var test = textBlocks.Get(textBlocks.KeyAt(i));
-                //    TextBlock textBlock = (TextBlock)textBlocks.Get(textBlocks.KeyAt(i));
-                //    result.Add(textBlock);
-                //}
+                var textResult = ProcessText(textBlocks);
                 textRecognizer.Release();
-                return text;
+                return textResult;
             }
             catch (Exception ex)
             {
@@ -60,9 +53,11 @@ namespace GoogleMLKitDemo.Droid.OCR
             {
                 TextBlock tBlock = (TextBlock)textBlocks.ValueAt(index);
                 var boundingBox = tBlock.BoundingBox;
-                blocks = blocks + tBlock.Value + $"({boundingBox.Bottom},{boundingBox.Left},{boundingBox.Top},{boundingBox.Right})\n";
+                var ss = tBlock.GetCornerPoints();
+                blocks = blocks + tBlock.Value + $" ({boundingBox.Bottom},{boundingBox.Left},{boundingBox.Top},{boundingBox.Right})\n";
                 foreach (var line in tBlock.Components)
                 {
+                    var cp = line.GetCornerPoints();
                     lines = lines + line.Value + "\n";
                 }
             }
