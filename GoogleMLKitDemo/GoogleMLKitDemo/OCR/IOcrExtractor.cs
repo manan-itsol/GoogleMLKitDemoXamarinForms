@@ -7,6 +7,6 @@ namespace GoogleMLKitDemo.OCR
 {
     public interface IOcrExtractor
     {
-        void ProcessImage(byte[] imageData);
+        (string blocks, string lines) ProcessImage(byte[] imageData);
     }
 }
