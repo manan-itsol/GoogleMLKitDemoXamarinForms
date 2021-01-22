@@ -1,13 +1,7 @@
-﻿using GoogleMLKitDemo.OCR;
-using GoogleMLKitDemo.Views;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
+﻿using GoogleMLKitDemo.Views;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using Tesseract;
 using Xamarin.Forms;
 
 namespace GoogleMLKitDemo.ViewModels

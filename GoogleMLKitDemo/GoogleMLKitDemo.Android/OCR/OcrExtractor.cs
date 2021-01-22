@@ -26,7 +26,7 @@ namespace GoogleMLKitDemo.Droid.OCR
 {
     public class OcrExtractor : IOcrExtractor
     {
-        public (string blocks,string lines) ProcessImage(byte[] imageData)
+        public string ProcessImage(byte[] imageData)
         {
             try
             {
@@ -45,46 +45,49 @@ namespace GoogleMLKitDemo.Droid.OCR
             }
         }
 
-        private (string blocks, string lines) ProcessText(SparseArray textBlocks)
+        private string ProcessText(SparseArray textBlocks)
         {
-            String blocks = "";
-            String lines = "";
+            Dictionary<int, List<(int x, int y, string text)>> ss = new Dictionary<int, List<(int x, int y, string text)>>();
             for (int index = 0; index < textBlocks.Size(); index++)
             {
                 TextBlock tBlock = (TextBlock)textBlocks.ValueAt(index);
-                var boundingBox = tBlock.BoundingBox;
-                var ss = tBlock.GetCornerPoints();
-                blocks = blocks + tBlock.Value + $" ({boundingBox.Bottom},{boundingBox.Left},{boundingBox.Top},{boundingBox.Right})\n";
                 foreach (var line in tBlock.Components)
                 {
-                    var cp = line.GetCornerPoints();
-                    lines = lines + line.Value + "\n";
+                    var x = line.BoundingBox.CenterX();
+                    var y = line.BoundingBox.CenterY();
+                    if (ss.Count == 0)
+                    {
+                        ss.Add(y, new List<(int x, int y, string text)> { (x, y, line.Value) });
+                    }
+                    else
+                    {
+                        var last = ss.LastOrDefault();
+                        if (y >= last.Key - 15 && y <= last.Key + 15)
+                        {
+                            ss.Where(x => x.Key == last.Key).FirstOrDefault().Value.Add((x, y, line.Value));
+                        }
+                        else
+                        {
+                            if (ss.Any(x => x.Key == y))
+                            {
+                                ss.Where(x => x.Key == y).FirstOrDefault().Value.Add((x, y, line.Value));
+                            }
+                            else
+                            {
+                                ss.Add(y, new List<(int x, int y, string text)> { (x, y, line.Value) });
+                            }
+                        }
+                    }
                 }
             }
-            return (blocks,lines);
-
-            //if (textBlocks.Size() == 0)
-            //{
-            //    // Log.d(TAG, "getTextFromBitmap: Scan Failed: Found nothing to scan");
-            //    //return new String[] { "Scan Failed: Found nothing to scan" };
-            //}
-            //else
-            //{
-            //    String[] textOnScreen = lines.Split("\n");
-            //    int lineCount = textOnScreen.Length;
-            //    if (lineCount > 3)
-            //    {
-            //        String question = "";
-            //        for (int i = 0; i < lineCount - 3; i++)
-            //        {
-            //            question += textOnScreen[i];
-            //        }
-            //        var sa = new String[] { question, textOnScreen[lineCount - 3], textOnScreen[lineCount - 2], textOnScreen[lineCount - 1] };
-
-            //    }
-            //    var ss = new String[] { "Scan Failed: Could not read options" };
-
-            //}
+            string finalLines = string.Empty;
+            int count = 1;
+            foreach (var item in ss.OrderBy(x => x.Key))
+            {
+                finalLines = $"{finalLines}Row{count}: {string.Join(' ', item.Value.OrderBy(x => x.x).Select(x => x.text).ToList())}\n";
+                count++;
+            }
+            return finalLines;
         }
     }
 }

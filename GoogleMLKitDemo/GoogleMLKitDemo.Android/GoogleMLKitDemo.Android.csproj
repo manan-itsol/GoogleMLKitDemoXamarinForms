@@ -77,9 +77,6 @@
     <PackageReference Include="Xamarin.Google.Android.Material">
       <Version>1.2.1.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Tesseract">
-      <Version>0.3.4</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

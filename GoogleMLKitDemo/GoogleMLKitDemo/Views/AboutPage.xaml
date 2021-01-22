@@ -30,14 +30,8 @@
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
                 <Button VerticalOptions="Center" Text="Capture" Command="{Binding CaptureCommand}"/>
-                <Label Text="Extracted Text (Tessarect)" FontSize="Title"/>
+                <Label Text="Extracted Text" FontSize="Title"/>
                 <Label Text="{Binding ExtractedText}" FontSize="16" Padding="0,0,0,0"/>
-                <BoxView BackgroundColor="Black" HeightRequest="1"/>
-                <Label Text="Extracted Text (ML Kit)(Blocks)" FontSize="Title"/>
-                <Label Text="{Binding MLExtractedBlocks}" FontSize="16" Padding="0,0,0,0"/>
-                <BoxView BackgroundColor="Black" HeightRequest="1"/>
-                <Label Text="Extracted Text (ML Kit)(Lines)" FontSize="Title"/>
-                <Label Text="{Binding MLExtractedLines}" FontSize="16" Padding="0,0,0,0"/>
                 <!--<Label FontSize="16" Padding="0,24,0,0">
                     <Label.FormattedText>
                         <FormattedString>

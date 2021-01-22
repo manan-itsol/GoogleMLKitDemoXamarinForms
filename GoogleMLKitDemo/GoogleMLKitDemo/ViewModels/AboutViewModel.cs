@@ -4,7 +4,6 @@ using Plugin.Media;
 using System;
 using System.IO;
 using System.Windows.Input;
-using Tesseract;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -33,23 +32,13 @@ namespace GoogleMLKitDemo.ViewModels
             }
         }
 
-        private string _mlExtractedBlocks;
-        public string MLExtractedBlocks
+        private ImageSource _capturedImage;
+        public ImageSource CapturedImage
         {
-            get => _mlExtractedBlocks;
+            get => _capturedImage;
             set
             {
-                SetProperty(ref _mlExtractedBlocks, value);
-            }
-        }
-
-        private string _mlExtractedLines;
-        public string MLExtractedLines
-        {
-            get => _mlExtractedLines;
-            set
-            {
-                SetProperty(ref _mlExtractedLines, value);
+                SetProperty(ref _capturedImage, value);
             }
         }
 
@@ -72,37 +61,22 @@ namespace GoogleMLKitDemo.ViewModels
             });
             if (file == null)
                 return;
-            Stream stream = file.GetStream();
             byte[] imageData;
+            Stream stream = file.GetStream();
             using (MemoryStream ms = new MemoryStream())
             {
                 stream.CopyTo(ms);
                 imageData = ms.ToArray();
             }
-            LoadingHelper.Show("Please wait");
-            try
-            {
-                var tesseractApi = DependencyService.Get<ITesseractApi>();
-                if (!tesseractApi.Initialized)
-                {
-                    var initResult = await tesseractApi.Init("eng");
-                }
-                ExtractedText = string.Empty;
-                var result = await tesseractApi.SetImage(imageData);
-                if (result)
-                {
-                    ExtractedText = tesseractApi.Text;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
 
+            LoadingHelper.Show("Please wait");
+
+            #region ml-kit text recognition
             // google ml kit text recognition commented
             var ocrExtractor = DependencyService.Get<IOcrExtractor>();
             var mlResult = ocrExtractor.ProcessImage(imageData);
-            MLExtractedLines = mlResult.lines;
-            MLExtractedBlocks = mlResult.blocks;
+            ExtractedText = mlResult;
+            #endregion ml-kit text recognition
             LoadingHelper.Hide();
         }
     }
