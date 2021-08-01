@@ -13,8 +13,7 @@ namespace GoogleMLKitDemo
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new TextRecognitionPage();
         }
 
         protected override void OnStart()
