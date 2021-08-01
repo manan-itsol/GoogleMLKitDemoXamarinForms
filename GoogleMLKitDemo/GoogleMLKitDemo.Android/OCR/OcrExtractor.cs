@@ -26,7 +26,7 @@ namespace GoogleMLKitDemo.Droid.OCR
 {
     public class OcrExtractor : IOcrExtractor
     {
-        public string ProcessImage(byte[] imageData)
+        public string ProcessImageAsync(byte[] imageData)
         {
             try
             {

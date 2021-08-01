@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -114,7 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoogleMLKitDemo\GoogleMLKitDemo.csproj">
-      <Project>{1CEF6AE5-D125-48FB-90D4-4751F8C34917}</Project>
+      <Project>{B7430160-5954-45F5-B5DD-0A4D5999399B}</Project>
       <Name>GoogleMLKitDemo</Name>
     </ProjectReference>
   </ItemGroup>
