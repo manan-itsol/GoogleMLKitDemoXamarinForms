@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Firebase.RemoteConfig;
 using Foundation;
 using UIKit;
 
@@ -21,12 +21,25 @@ namespace GoogleMLKitDemo.iOS
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-        {
-            global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-            global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            {
+            try
+            {
 
-            return base.FinishedLaunching(app, options);
+                global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+                global::Xamarin.Forms.Forms.Init();
+
+                Firebase.Core.App.Configure();
+                _ = RemoteConfig.SharedInstance;
+
+                LoadApplication(new App());
+
+                return base.FinishedLaunching(app, options);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

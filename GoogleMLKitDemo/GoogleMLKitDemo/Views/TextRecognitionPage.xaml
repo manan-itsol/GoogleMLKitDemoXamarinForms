@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoogleMLKitDemo.Views.TextRecognitionPage"
              xmlns:vm="clr-namespace:GoogleMLKitDemo.ViewModels"
-             Title="{Binding Title}">
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             Title="{Binding Title}"
+             ios:Page.UseSafeArea="True">
 
     <ContentPage.BindingContext>
         <vm:TextRecognitionViewModel />
@@ -24,7 +26,7 @@
                 <Button VerticalOptions="Center" Text="Extract Text (ML Kit)" Command="{Binding CaptureCommand}" CommandParameter="MLKit"/>
                 <Button VerticalOptions="Center" Text="Extract Text (Abbyy)" Command="{Binding CaptureCommand}" CommandParameter="Abbyy"/>
                 <Label Text="Extracted Text" FontSize="Title"/>
-                <Label Text="{Binding ExtractedText}" FontSize="16" Padding="0,0,0,0"/>
+                <Label Text="{Binding ExtractedText}" FontSize="16" TextColor="Black" Padding="0,0,0,0"/>
                 <!--<Label FontSize="16" Padding="0,24,0,0">
                     <Label.FormattedText>
                         <FormattedString>

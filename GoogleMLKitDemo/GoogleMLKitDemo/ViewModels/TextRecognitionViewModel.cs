@@ -90,17 +90,17 @@ namespace GoogleMLKitDemo.ViewModels
             }
             else
             {
-                ExtractTextMlKit(imageData);
+                await ExtractTextMlKit(imageData);
             }
             LoadingHelper.Hide();
         }
 
-        private void ExtractTextMlKit(byte[] image)
+        private async Task ExtractTextMlKit(byte[] image)
         {
             #region ml-kit text recognition
             // google ml kit text recognition commented
             var ocrExtractor = DependencyService.Get<IOcrExtractor>();
-            var mlResult = ocrExtractor.ProcessImage(image);
+            var mlResult = await ocrExtractor.ProcessImageAsync(image);
             ExtractedText = mlResult;
             #endregion ml-kit text recognition
         }

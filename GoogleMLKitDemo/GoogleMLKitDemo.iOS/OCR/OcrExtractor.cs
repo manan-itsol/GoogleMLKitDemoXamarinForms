@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Firebase.MLKit.Vision;
+using Foundation;
+using GoogleMLKitDemo.iOS.OCR;
 using GoogleMLKitDemo.OCR;
+using UIKit;
 
-[assembly: Xamarin.Forms.Dependency(typeof(OcrExtractorService))]
+[assembly: Xamarin.Forms.Dependency(typeof(OcrExtractor))]
 namespace GoogleMLKitDemo.iOS.OCR
 {
     public class OcrExtractor :IOcrExtractor
