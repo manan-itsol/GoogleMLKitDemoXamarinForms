@@ -1,5 +1,4 @@
-﻿using GoogleMLKitDemo.Models;
-using GoogleMLKitDemo.Services;
+﻿using GoogleMLKitDemo.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,8 +9,6 @@ namespace GoogleMLKitDemo.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
         bool isBusy = false;
         public bool IsBusy
         {
