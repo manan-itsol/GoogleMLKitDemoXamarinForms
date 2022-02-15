@@ -27,7 +27,7 @@ namespace GoogleMLKitDemo.Droid.OCR
     public class OcrExtractor : IOcrExtractor
     {
         #region service methods
-        public Task<string> ProcessImageAysnc(byte[] imageData)
+        public async Task<string> ProcessImageAsync(byte[] imageData)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace GoogleMLKitDemo.Droid.OCR
 
                 var textResult = ProcessText(textBlocks);
                 textRecognizer.Release();
-                return await Task.FromResult(textResult);
+                return await System.Threading.Tasks.Task.FromResult(textResult);
             }
             catch (Exception ex)
             {

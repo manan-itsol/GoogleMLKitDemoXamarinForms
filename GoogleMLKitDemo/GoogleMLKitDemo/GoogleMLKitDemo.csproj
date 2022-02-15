@@ -7,14 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abbyy.CloudSdk.V2.Client" Version="1.0.6" />
-    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="Abbyy.CloudSdk.V2.Client" Version="1.0.6" />
+    <PackageReference Include="PCLStorage" Version="1.0.2" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MobileCapture.Core.Extended">
+      <HintPath>C:\Users\Mani\Downloads\abbyy-mc_1399-2_117813_image_and_data_xamarin\Xamarin.MI+Extended\libs\Common\MobileCapture.Core.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="MobileCapture.Forms.Common">
+      <HintPath>C:\Users\Mani\Downloads\abbyy-mc_1399-2_117813_image_and_data_xamarin\Xamarin.MI+Extended\libs\Common\MobileCapture.Forms.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
